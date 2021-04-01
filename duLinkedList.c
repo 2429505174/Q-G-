@@ -99,14 +99,18 @@ void DestroyList_DuL(DuLinkedList *L) {
  *  @notice      : None
  */
 Status InsertBeforeList_DuL(DuLNode *p, DuLNode *q) {
-    if (p->data == 0)
-        printf("||-->无节点！");
+    if (p->prior == NULL)
+    {
+        q->next = p;
+        p->prior = q;
+    }
+        //printf("||-->无节点！");
     else {
         q->next = p;         //四步法 有点乱 下周学习统一一下
         p->prior->next = q;
         q->prior = p->prior;
         p->prior = q;
-        printf(printf("||-->插入成功！\n"));
+        printf("||-->插入成功！\n");
         i_count++;
     }
 
@@ -132,7 +136,7 @@ Status InsertAfterList_DuL(DuLNode *p, DuLNode *q) {
         q->prior = p;
         p->next->prior = q;
         p->next = q;
-        printf(printf("||-->插入成功！\n"));
+        printf("||-->插入成功！\n");
         return SUCCESS;
     }
     i_count++;
@@ -238,15 +242,38 @@ void SCANF(ElemType* e) {
 }
 
 Status SearchList_DuL(DuLinkedList L, ElemType e) {
+    int n = 0, t = 0;
+    DuLNode* temp[10] = { NULL };
     while (L) {
         if (L->data == e)
         {
-            Findnode = L;
-            return SUCCESS;
+            temp[n] = L;
+            n++;
         }
         L = L->next;
     }
+    if (n) {
 
+        printf("||-->已发现data相同的节点%d个：\n", n);
+        printf("||-->顺序如下：");
+        n = 0;
+        while (temp[n]) {
+            printf("%d  ", temp[n]->data);
+            n++;
+
+        }
+
+        printf("\n||-->请选择要寻找第几个节点：");
+        SCANF(&t);
+        while (t > n)
+        {
+            printf("||-->输入错误！\n");
+            printf("||-->请选择要寻找第几个节点：");
+            SCANF(&t);
+        }
+        Findnode = temp[t - 1];
+        return SUCCESS;
+    }
     printf("||-->无该节点！\n");
     return ERROR;
 }

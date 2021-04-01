@@ -123,7 +123,7 @@ Status DeleteList(LNode* p, ElemType* e) {
 	*e = (pTemp->data);
 	p->next = pTemp->next;
 	free(pTemp);
-	printf("||-->删除节点内的data：%d\n", e);
+	printf("||-->删除节点内的data：%d\n", *e);
 	i_count--;
 }
 
@@ -153,15 +153,38 @@ void TraverseList(LinkedList L, void (*visit)(ElemType e)) {
  *  @notice      : None
  */
 Status SearchList(LinkedList L, ElemType e) {
+	int n = 0,t=0;
+	LNode* temp[10] = { NULL };
 	while (L) {
 		if (L->data == e)
 		{
-			Pre = L;
-			return SUCCESS;
+			temp[n] = L;
+			n++;
 		}
 		L = L->next;
 	}
-	
+	if (n) {
+
+		printf("||-->已发现data相同的节点%d个：\n",n);
+		printf("||-->顺序如下：");
+		n = 0;
+		while (temp[n]) {
+			printf("%d  ",temp[n]->data );
+			n++;
+			
+		}
+
+		printf("\n||-->请选择要寻找第几个节点：");
+		SCANF(&t);
+		while(t > n)
+		{
+			printf("||-->输入错误！\n");
+			printf("||-->请选择要寻找第几个节点：");
+			SCANF( &t);
+		}
+		Pre = temp[t-1];
+		return SUCCESS;
+	}
 	printf("||-->无该节点！\n");
 	return ERROR;
 }
@@ -338,6 +361,7 @@ void SCANF(ElemType* e) {
 	
 	int ret;
 		ret = scanf("%d",e);
+		getchar();
 		while (ret != 1)
 		{
 			while (getchar() != '\n');

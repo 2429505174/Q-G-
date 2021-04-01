@@ -26,7 +26,9 @@ int main() {
 		{
 		case 0:
 		{
-			system("cls");
+			printf("||-->结束!\n");
+			system("pause");
+			getchar();
 			exit(0);
 		}
 		case 1: //初始化
@@ -71,9 +73,10 @@ int main() {
 			printf("||-->请输入要删除节点的前节点data：");
 			SCANF(&e);
 			//FindPre(L,Index);
-			SearchList(L, e);
-			DeleteList(Pre, &e);//删除pre下一个节点 并返回data
-			//printf("||-->删除节点内的data：%d\n", e);
+			if (SearchList(L, e))
+			{
+				DeleteList(Pre, &e);//删除pre下一个节点 并返回data
+			}//printf("||-->删除节点内的data：%d\n", e);
 			system("pause");
 			break;
 		}

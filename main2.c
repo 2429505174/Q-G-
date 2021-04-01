@@ -21,6 +21,8 @@ int main()
         {
         case 0:
         {
+            system("pause");
+            getchar();
             system("cls");
             exit(0);
         }
@@ -48,10 +50,11 @@ int main()
                     printf("||-->请输入插入位置所在节点的data：");
                     SCANF(&num);
                     //FindPre(L,Index);
-                    SearchList_DuL(head, num);
-                    New = creatNew();
-                    InsertBeforeList_DuL(Findnode, New);
-                    system("pause");
+                    if (SearchList_DuL(head, num))
+                    {
+                        New = creatNew();
+                        InsertBeforeList_DuL(Findnode, New);
+                    }system("pause");
                     getchar();
                     system("cls");
                     break;
@@ -62,9 +65,11 @@ int main()
             printf("||-->请输入插入位置前节点的data：");
             SCANF(&num);
             //FindPre(L,Index);
-            SearchList_DuL(head, num);
-            New = creatNew();
-            InsertAfterList_DuL(Findnode, New);
+            if (SearchList_DuL(head, num))
+            {
+                New = creatNew();
+                InsertAfterList_DuL(Findnode, New);
+            }
             system("pause");
             getchar();
             system("cls");
