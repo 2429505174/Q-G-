@@ -22,20 +22,20 @@ typedef struct elem {
 	char oper ;
 	Status IsNum ;
 }Elem;
-
+void Menu();
 //get()用于获取用户输入，将用户输入转换为中缀表达式存储在calculate.cpp的中缀表达式数组中
-Status get();
+Status GetUn();
 //translate()用于将中缀表达式数组中的中缀表达式转换为后缀表达式并存储进后缀表达式数组中
-void translate();
+void TranslateUn();
 //calculate()将利用后缀表达式数组中的后缀表达式计算出表达式结果并返回
-double calculate();
+double Calculate();
 
 //translate()的一些函数
 
 void IsAdd(size_t* j);
 void IsSub(size_t* j);
-void IsMulti();
-void IsDiv();
+void IsMulti(size_t* j);
+void IsDiv(size_t* j);
 void IsLeft();
 void IsRight(size_t* j);
 void IsEqual(size_t* j);
