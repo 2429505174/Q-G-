@@ -111,59 +111,117 @@
 
 ### 大组作业：
 
-1. 链栈头指针问题 
+#### 链栈头指针问题 
 
-   初始化 申请空间为链栈头指针 
+初始化 申请空间为链栈头指针 
 
-   > 若这样：
-   >
-   > ```c
-   > LinkStackPtr stack;//= (LinkStackPtr)malloc(sizeof(StackNode)); 
-   > 
-   > ```
-   >
-   > 严重性	代码	说明	项目	文件	行	禁止显示状态
-   > 错误	C4700	使用了未初始化的局部变量“stack”	栈	D:\cnb\栈\LinkStack.c	68	
-   >
-   > 若这样：
-   >
-   > ```c
-   > //LinkStackPtr stack= (LinkStackPtr)malloc(sizeof(StackNode));
-   > ```
-   >
-   > 则初始化不成功。内存总是被释放。
-
-2. 针对师兄提出的健壮性解答**
-
-> **一亿：**
->
-> typedef int ElemType; 改动int 为 longlong int 
->
-> **1a 1aa  1， ：**
+> 若这样：
 >
 > ```c
->    
-> if (ret == 1) {
->         ch = getchar();
->         if (ch == ' ' || ch == '\n') {
->             
->         }
->     else {
->         printf("||-->输入有异常!\n");
->         while (getchar() != '\n');
->         printf("||-->是否忽略(Y):");
->         scanf("%c", &ch);
->         if (ch == 'Y')
->         {
->                          //选择忽略后面的异常字符
->         }
->         else {
->             ret = 0;  //重新循环 
+> LinkStackPtr stack;//= (LinkStackPtr)malloc(sizeof(StackNode)); 
 > 
->         }
->     }
 > ```
-> 加入这串代码 用选择是否忽略错误输入来解决问题。
+>
+> 严重性	代码	说明	项目	文件	行	禁止显示状态
+> 错误	C4700	使用了未初始化的局部变量“stack”	栈	D:\cnb\栈\LinkStack.c	68	
+>
+> 若这样：
+>
+> ```c
+> //LinkStackPtr stack= (LinkStackPtr)malloc(sizeof(StackNode));
+> ```
+>
+> 则初始化不成功。内存总是被释放。
+
+#### 针对师兄提出的健壮性解答
+
+##### **一亿：**
+
+typedef int ElemType; 改动int 为 longlong int 
+
+##### **1a 1aa  1， ：**
+
+```c
+
+if (ret == 1) {
+     ch = getchar();
+     if (ch == ' ' || ch == '\n') {
+
+     }
+ else {
+     printf("||-->输入有异常!\n");
+     while (getchar() != '\n');
+     printf("||-->是否忽略(Y):");
+     scanf("%c", &ch);
+     if (ch == 'Y')
+     {
+                      //选择忽略后面的异常字符
+     }
+     else {
+         ret = 0;  //重新循环 
+
+     }
+ }
+```
+加入这串代码 用选择是否忽略错误输入来解决问题。
+
+#### 计算器问题：
+
+##### 后缀表达式：
+
+计算：
+
+后缀表达式是从左向右“依次计算”，没有优先级的！
+
+任一中缀表达式必然存在效果、意义相同的前缀、后缀表达式。
+
+计算顺序就是：将后缀表达式从左到右依次遍历，如果当前元素为数字则**入（操作数）栈**，如果为操作符，则pop出栈顶两个元素（第一次pop出的是右操作数，第二次pop出的是左操作数）
+
+**操作数栈**内理应只剩一个元素即表达式结果。
+
+转换：（中缀转后缀）
+
+从左到右开始扫描中缀表达式
+遇到数字， 直接输出
+遇到运算符
+a.若为“(” 直接入栈
+b.若为“)” 将符号栈中的元素依次出栈并输出, 直到 “(“, “(“只出栈, 不输出
+c.**若为其他符号, 将符号栈中的元素依次出栈并输出, 直到遇到比当前符号优先级更低的符号或者”(“。** 将当前符号入栈。
+扫描完后, 将栈中剩余符号依次输出
+
+也就是遇到优先级高的入栈 优先级低的  则全部出栈
+
+
+
+对中缀表达式进行求解依然是运用栈的技术。我们的计算器程序中使用了一个操作符栈用于转换，一个操作符数栈用于计算，而如果对中缀表达式进行求解则是同时利用操作数栈和操作符栈，
+
+### 机器学习：
+
+#### 简单线性回归：
+
+$$
+∑
+$$
+
+单元
+
+计算真实值与预测值差：不用绝对值  因为 加绝对值不一定处处可导  后面用到导数。所以（y-y1）平方  称为 损失函数或效用函数   
+
+最优化损失函数或者效用函数  损失最小 效用最大
+
+所有参数模型，就是找到参数 最优化函数。
+
+SVM线性回归：
+
+多项式回归：神经网络
+
+逻辑回归：
+
+**最优化原理** 学科
+
+凸优化原理 
+
+
 
 ## 一周总结
 
@@ -171,25 +229,81 @@
 
 ## 存在问题
 
- isinstance  这个函数的学习
+###  isinstance  
 
+> 这个函数的学习
+>
+> 
+>
+> ```python
+> def my_abs(x):
+>     if not isinstance(x, (int, float)):
+>         raise TypeError('bad operand type')
+>     if x >= 0:
+>         return x
+>     else:
+>         return -x
+> ```
+>
+> 如果 *classinfo* 是类型对象元组（或由其他此类元组递归组成的元组），那么如果 *object* 是其中任何一个类型的实例就返回 `True`。 如果 *classinfo* 既不是类型，也不是类型元组或类型元组的元组，则将引发 [`TypeError`](https://docs.python.org/zh-cn/3/library/exceptions.html#TypeError) 异常。
+>
+> 解决！！！
+>
 
+### 头文件重复定义
 
-```python
-def my_abs(x):
-    if not isinstance(x, (int, float)):
-        raise TypeError('bad operand type')
-    if x >= 0:
-        return x
-    else:
-        return -x
+> ifndef CALCULATE   //用于防止头文件被多次包含产生的多次定义问题
+>
+> define CALCULATE
+
+### 系统数据类型命名：
+
+typedef unsigned int     size_t;
+    typedef int              ptrdiff_t;
+    typedef int              intptr_t;
+
+size_t是一些C/C++标准在stddef.h中定义的。这个类型足以用来表示对象的大小。
+
+为了增强程序的可移植性，便有了size_t，它是为了方便系统之间的移植而定义的，不同的系统上，定义size_t可能不一样。
+
+```c
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+    int i = -1;
+    if(i > strlen("Demon"))  //strlen返回值类型为size_t 
+        printf("Hello World");
+    else
+        printf("Hello Demon");
+    return 0;
+}
 ```
 
-如果 *classinfo* 是类型对象元组（或由其他此类元组递归组成的元组），那么如果 *object* 是其中任何一个类型的实例就返回 `True`。 如果 *classinfo* 既不是类型，也不是类型元组或类型元组的元组，则将引发 [`TypeError`](https://docs.python.org/zh-cn/3/library/exceptions.html#TypeError) 异常。
-
-解决！！！
 
 
+即无符号的整型，而i的类型是int，即有符号的整型。当有符号整型和无符号整型进行运算时，有符号整型会先自动转化成无符号。-1转化成无符号数为4294967295，远远大于5。
+
+**今后遇到有符号数和无符号数之间的运算时要千万小心。**
+
+了解使用
+
+### 缓冲区和标准输入（stdin）
+
+fgets(input, sizeof(input) / sizeof(char), stdin); **stdin 模拟键盘输入文件读取**  大小表示  sizeof(input) / sizeof(char)  奇妙的方法 与我之前那个不太一样(查看文件属性 有字节数)
+
+fgets(buf, STLEN, fp);
+这里，buf是char类型数组的名称，STLEN是字符串的大小，**fp是指向 FILE的指针。**
+
+
+
+### <ctype.h>
+
+### 一个栈结构的不同数据类型储存问题
+
+可以使用局部变量  相当于创建另一个局部栈和相关函数。
+
+ 
 
 ## 下周规划
 
