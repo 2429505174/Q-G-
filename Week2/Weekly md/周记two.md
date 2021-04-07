@@ -211,6 +211,10 @@ $$
 
 所有参数模型，就是找到参数 最优化函数。
 
+<img src="D:\nootbook\周记\zuixiao1.jpg" alt="zuixiao1" style="zoom: 33%;" /><img src="D:\nootbook\周记\zuixiao.jpg" alt="zuixiao"  />
+
+
+
 SVM线性回归：
 
 多项式回归：神经网络
@@ -221,7 +225,43 @@ SVM线性回归：
 
 凸优化原理 
 
+##### numpy 个别函数学习：
 
+> ndim返回的是数组的维度，返回的只有一个数，该数即表示数组的维度。
+>
+> dtype：一个用于说明数组数据类型的对象。返回的是该数组的数据类型。
+>
+> d = np.array([[1,2],[3,4]],dtype=complex) # 指定数据类型  complex 复数类型
+
+##### 矩阵转置方法：
+
+> import numpy as np        
+> a = np.array([1,2,3,4,5])
+> print(a)
+>
+> 1.print(a.T) 不可  常用这个
+> 2.print(a.transpose()) 不可 
+> 3.print(a.reshape(a.shape[0],1)  可以用于一维矩阵
+
+##### zip（）
+
+> ﻿﻿zip()函数接受一系列可迭代对象作为参数，将不同对象中相对应的元素打包成一个元组（tuple），返回由这些元组组成的list列表，如果传入的参数的长度不等，则返回的list列表的长度和传入参数中最短对象的长度相同。
+>
+> zip相当与压缩 zip（*）相当于解压。
+
+> ```python
+> x=["a","1"]
+> y=["b","2"]
+> z = list(zip(x,y))
+> print (list(zip(x,y)))
+> print (list(zip(*z)))  解压
+> 
+> #[('a', 'b'), ('1', '2')]  
+> 
+> 
+> 
+> #[('a', '1'), ('b', '2')]
+> ```
 
 ## 一周总结
 
@@ -255,6 +295,10 @@ SVM线性回归：
 > ifndef CALCULATE   //用于防止头文件被多次包含产生的多次定义问题
 >
 > define CALCULATE
+>
+>  ifndef #define #endif的用法总结：在头文件中出现了变量定义，这种情况下，这个#ifndef才有了作用，第一次被引用时，该定义能够同时被包含，但是第二次，由于已经define xxx了，所以这个定义就不能被重复包含了，这样就能有效的避免重复定义而报错了，因为编译过程中，声明可以，但是重复定义是不可以的。
+
+
 
 ### 系统数据类型命名：
 
